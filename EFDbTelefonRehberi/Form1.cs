@@ -54,21 +54,78 @@ namespace EFDbTelefonRehberi
             }
             else
             {
-                Kisiler kisi = new Kisiler();
-                kisi.Adi = txtAd.Text;
-                kisi.Soyadi = txtSoyad.Text;
-                kisi.Telefonu = txtTelefon.Text;
-
-                db.Kisilers.Add(kisi);
-                int kaydettiMi = 0;
-                kaydettiMi = db.SaveChanges();//yapılan eklemeyi kaydeder yazar
-                if (kaydettiMi > 0)
+                if (btnKaydet.Text == "kaydet")
                 {
-                    MessageBox.Show("kisi eklendi");
-                    dataGridView1.DataSource = db.Kisilers.ToList();//gridi doldurucak
+                    Kisiler kisi = new Kisiler();
+                    kisi.Adi = txtAd.Text;
+                    kisi.Soyadi = txtSoyad.Text;
+                    kisi.Telefonu = txtTelefon.Text;
+
+                    db.Kisilers.Add(kisi);
+                    int kaydettiMi = 0;
+                    kaydettiMi = db.SaveChanges();//yapılan eklemeyi kaydeder yazar
+                    if (kaydettiMi > 0)
+                    {
+                        MessageBox.Show("kisi eklendi");
+                        dataGridView1.DataSource = db.Kisilers.ToList();//gridi doldurucak
+                        KisileriYukle();
+                    }
+                }
+                else
+                {
+                    guncellenecekKisi.Adi = txtAd.Text;
+                    guncellenecekKisi.Soyadi = txtSoyad.Text;
+                    guncellenecekKisi.Telefonu = txtTelefon.Text;
+                    db.SaveChanges();
+                    btnKaydet.Text = "kaydet";
                     KisileriYukle();
                 }
+                txtAd.Text = txtSoyad.Text = txtTelefon.Text = "";
             }  
+        }
+        Kisiler guncellenecekKisi;
+        private void CmsGuncelle_Click(object sender, EventArgs e)
+        {
+            guncellenecekKisi = (Kisiler)listView1.SelectedItems[0].Tag;
+            txtAd.Text = guncellenecekKisi.Adi;
+            txtSoyad.Text = guncellenecekKisi.Soyadi;
+            txtTelefon.Text = guncellenecekKisi.Telefonu;
+            btnKaydet.Text = "Güncelle";
+           
+
+
+        }
+
+        private void CmsSil_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+            // listView1.SelectedItems[0]//listview item
+            
+            //listView1.SelectedItems[0].Text//kisinin ıd
+            
+            Kisiler kisi = (Kisiler)listView1.SelectedItems[0].Tag;
+           DialogResult dialog= MessageBox.Show("silmek istediğinize emin misiniz?","Uyarı!",MessageBoxButtons.YesNo);
+            if (dialog==DialogResult.Yes)
+            {
+                db.Kisilers.Remove(kisi);//entity ile silme
+                int basarili = 0;
+                basarili = db.SaveChanges();
+                if (basarili > 0)
+                {
+                    KisileriYukle();
+                    MessageBox.Show("kişi silinmiştir.");
+                }
+                else
+                {
+                    MessageBox.Show("silinemedi.");
+                }
+            }
+          
+
+           
         }
     }
 }

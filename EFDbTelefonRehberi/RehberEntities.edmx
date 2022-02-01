@@ -10,9 +10,9 @@
             <PropertyRef Name="KisiId" />
           </Key>
           <Property Name="KisiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Adi" Type="nchar" MaxLength="20" />
-          <Property Name="Soyadi" Type="nchar" MaxLength="20" />
-          <Property Name="Telefonu" Type="nchar" MaxLength="20" />
+          <Property Name="Adi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Soyadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefonu" Type="nvarchar" MaxLength="50" />
           <Property Name="aktifMi" Type="bit" />
         </EntityType>
         <EntityContainer Name="TelefonRehberiDbModelStoreContainer">
@@ -27,9 +27,9 @@
             <PropertyRef Name="KisiId" />
           </Key>
           <Property Name="KisiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Adi" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="Soyadi" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="Telefonu" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefonu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="aktifMi" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="TelefonRehberiDbEntities" annotation:LazyLoadingEnabled="true">
